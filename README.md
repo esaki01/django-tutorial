@@ -7,15 +7,15 @@
 コマンドラインから、コードを置きたい場所に cd して、以下のコマンドを 実行してください.
 
 ```
-django-admin startproject project_name
+django-admin startproject mysite
 ```
 
 以下のようなディレクトリが作成されます.
 
 ```
-project_name/
+mysite/
     manage.py
-    project_name/
+    mysite/
         __init__.py
         settings.py
         urls.py
@@ -27,7 +27,7 @@ project_name/
 - urls.py: DjangoプロジェクトのURL宣言. Djangoサイトにおける「目次」に相当.  
 - wsgi.py: プロジェクトをサーブするためのWSGI互換Webサーバーとのエントリーポイント.
 
-Django のプロジェクトがうまく動作するか確認しましょう.
+Djangoのプロジェクトがうまく動作するか確認しましょう.
 
 ```
 python manage.py runserver
@@ -38,13 +38,13 @@ python manage.py runserver
 manage.pyと同じディレクトリにフォルダを作成しましょう.
 
 ```
-python manage.py startapp app_name
+python manage.py startapp polls
 ```
 
 中身はこのようになっています.
 
 ```
-app_name/
+polls/
     __init__.py
     admin.py
     apps.py
@@ -55,7 +55,42 @@ app_name/
     views.py
 ```
 
+## はじめてのビュー作成
+
+polls/views.py
+```
+from django.http import HttpResponse
 
 
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+```
 
+ビューを呼ぶために、URLを対応付けしてやる必要があります.  
+そのためにurls.pyというファイルを作ります.
 
+polls/urls.py
+```
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+```
+
+次に、ルートのurls.pyに polls.urlsモジュールの記述を反映させます.
+
+mysite/urls.py
+```
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+
+ブラウザで http://localhost:8000/polls/ にアクセスすると、"Hello, world. You're at the polls index." と表示されるのが確認できるでしょう.
