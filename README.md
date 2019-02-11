@@ -1,5 +1,7 @@
 # Django Tutorial
 
+https://docs.djangoproject.com/ja/2.1/intro/
+
 ## はじめての Django アプリ作成、その 1
 
 ### プロジェクトを作成
