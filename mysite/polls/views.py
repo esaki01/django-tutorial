@@ -2,6 +2,7 @@
 Applicationに表示するViewを決めるファイル.
 viewsを呼ぶために、urlsでURLを対応付ける必要がある.
 """
+
 from django.http import HttpResponse
 
 

@@ -1,6 +1,7 @@
 """
 Applicationもしくは機能ごとに先頭のURLを振り分けることができる.
 """
+
 from django.contrib import admin
 from django.urls import include, path
 

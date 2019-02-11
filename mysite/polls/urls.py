@@ -1,6 +1,7 @@
 """
 ApplicationのURLを宣言する. URLのConfiguration.
 """
+
 from django.urls import path
 
 from . import views
