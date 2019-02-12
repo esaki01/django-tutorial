@@ -571,3 +571,30 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 ```
+
+## はじめての Django アプリ作成、その 6
+
+### 静的ファイルの管理
+
+polls/static/polls/style.css
+```
+li a {
+    color: green;
+}
+```
+
+polls/templates/polls/index.html
+```
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+```
+
+画像はpolls/static/polls/images/background.gifに置きます.
+
+polls/static/polls/style.css
+```
+body {
+    background: white url("images/background.gif") no-repeat;
+}
+```
