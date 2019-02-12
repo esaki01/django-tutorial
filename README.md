@@ -572,6 +572,8 @@ class QuestionDetailViewTests(TestCase):
         self.assertContains(response, past_question.question_text)
 ```
 
+---
+
 ## はじめての Django アプリ作成、その 6
 
 ### 静的ファイルの管理
@@ -598,3 +600,47 @@ body {
     background: white url("images/background.gif") no-repeat;
 }
 ```
+
+---
+
+## はじめての Django アプリ作成、その 7
+
+admin フォームの表示方法や操作の仕方をデフォルトから変更したいこともよくあります. それには、オブジェクトを登録する時にオプションを指定します.
+
+polls/admin.py
+```
+from django.contrib import admin
+
+from .models import Question
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fields = ['pub_date', 'question_text']
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+このように、モデルの admin のオプションを変更したいときには、モデルごとに admin クラスを作成して、 admin.site.register() の 2 番目の引数に渡すと いうパターンに従ってください.
+
+上の例では、「Publication date」フィールドの表示位置を「Question」フィールドよりも前に変更しています.
+
+また、数十ものフィールドがある場合、フォームを複数のフィールドセットに分割したいこともあるでしょう.
+
+polls/admin.py
+```
+from django.contrib import admin
+
+from .models import Question
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date']}),
+    ]
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+
+
